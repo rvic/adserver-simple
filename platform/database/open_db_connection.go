@@ -20,7 +20,6 @@ func OpenDBConnection() (*Queries, error) {
 
 	return &Queries{
 		// Set queries from models:
-		//BookQueries:     &queries.BookQueries{DB: db},
 		CustomerQueries: &queries.CustomerQueries{DB: db},
 		CampaignQueries: &queries.CampaignQueries{DB: db},
 	}, nil

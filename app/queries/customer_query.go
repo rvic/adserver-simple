@@ -36,7 +36,6 @@ func (q *CustomerQueries) GetCustomer(id string) (models.Customer, error) {
 	return customer, nil
 }
 
-// CreateBook method for creating book by given Book object.
 func (q *CustomerQueries) AddCustomer(c *models.Customer) error {
 	query := `INSERT INTO customers VALUES ($1, $2, $3)`
 	_, err := q.Exec(query, c.ID, c.Name, c.Balance)
@@ -47,7 +46,6 @@ func (q *CustomerQueries) AddCustomer(c *models.Customer) error {
 	return nil
 }
 
-// UpdateBook method for updating book by given Book object.
 func (q *CustomerQueries) UpdateCustomer(c *models.CustomerUpd) error {
 	query := `UPDATE customers SET balance = $2 WHERE id = $1`
 
@@ -59,7 +57,7 @@ func (q *CustomerQueries) UpdateCustomer(c *models.CustomerUpd) error {
 	return nil
 }
 
-// DeleteBook method for delete book by given ID.
+
 func (q *CustomerQueries) DeleteCustomer(id string) error {
 	query := `DELETE FROM customers WHERE id = $1`
 
