@@ -1,0 +1,282 @@
+definitions:
+  models.Campaign:
+    properties:
+      countries:
+        items:
+          type: string
+        type: array
+      creative:
+        maxLength: 255
+        type: string
+      customer_id:
+        type: string
+      devices:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      views:
+        type: integer
+    required:
+    - countries
+    - creative
+    - customer_id
+    - devices
+    - id
+    - views
+    type: object
+  models.CampaignCrt:
+    properties:
+      countries:
+        items:
+          type: string
+        type: array
+      creative:
+        maxLength: 255
+        type: string
+      customer_id:
+        type: string
+      devices:
+        items:
+          type: string
+        type: array
+      views:
+        type: integer
+    required:
+    - countries
+    - creative
+    - customer_id
+    - devices
+    - views
+    type: object
+  models.Customer:
+    properties:
+      balance:
+        type: integer
+      id:
+        type: string
+      name:
+        maxLength: 255
+        type: string
+    required:
+    - balance
+    - id
+    - name
+    type: object
+  models.CustomerCrt:
+    properties:
+      balance:
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+    required:
+    - balance
+    - name
+    type: object
+  models.CustomerDel:
+    properties:
+      id:
+        type: string
+    required:
+    - id
+    type: object
+  models.CustomerUpd:
+    properties:
+      balance:
+        type: integer
+      id:
+        type: string
+    required:
+    - balance
+    - id
+    type: object
+info:
+  contact:
+    email: your@mail.com
+    name: API Support
+  description: This is an auto-generated API Docs.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API
+  version: "1.0"
+paths:
+  /api/v1/campaign:
+    post:
+      consumes:
+      - application/json
+      description: Create a new campaign.
+      parameters:
+      - description: Campaign
+        in: body
+        name: campaign
+        required: true
+        schema:
+          $ref: '#/definitions/models.CampaignCrt'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Campaign'
+      security:
+      - ApiKeyAuth: []
+      summary: create a new campaign
+      tags:
+      - Campaign
+  /api/v1/campaigns:
+    get:
+      consumes:
+      - application/json
+      description: Get customer campaigns.
+      parameters:
+      - description: Customer ID
+        in: query
+        name: customer_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Campaign'
+            type: array
+      summary: Gets campaigns for customer
+      tags:
+      - Campaigns
+  /api/v1/customer:
+    delete:
+      consumes:
+      - application/json
+      description: Delete customer by given ID.
+      parameters:
+      - description: Customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/models.CustomerDel'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete customer by given ID
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Create a new customer.
+      parameters:
+      - description: Customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/models.CustomerCrt'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Customer'
+      security:
+      - ApiKeyAuth: []
+      summary: create a new customer
+      tags:
+      - Customer
+    put:
+      consumes:
+      - application/json
+      description: Update customer.
+      parameters:
+      - description: Customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/models.CustomerUpd'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update customer
+      tags:
+      - Customer
+  /api/v1/customer/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get customer by given ID.
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Customer'
+      summary: get customer by given ID
+      tags:
+      - Customer
+  /api/v1/customers:
+    get:
+      consumes:
+      - application/json
+      description: Get all existing customers.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Customer'
+            type: array
+      summary: get all existsing customers
+      tags:
+      - Customers
+  /api/v1/token/new:
+    get:
+      consumes:
+      - application/json
+      description: Create a new access token.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: create a new access token
+      tags:
+      - Token
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
